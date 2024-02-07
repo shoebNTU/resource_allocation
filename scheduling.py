@@ -26,7 +26,7 @@ no_of_job_types = st.sidebar.number_input(
 
 # max number of resources
 max_days_resource = st.sidebar.number_input(
-    "Please enter maximum number of jobs a resource can do", min_value=1, value=1
+    "Please enter maximum number of jobs a resource can perform", min_value=1, value=1
 )
 
 # Enter names of resources
@@ -77,7 +77,7 @@ if len(job_types) == no_of_job_types and len(resources) == no_of_resources:
         st.header("No. of jobs")
         for i in range(no_of_job_types):
             no_of_jobs = st.number_input(
-                f"Please enter no. of jobs for {job_types[i]}",
+                f"No. of jobs for job type - {job_types[i]}",
                 min_value=0,
                 value=1,
                 key="no_jobs" + str(i),
@@ -135,4 +135,7 @@ if len(job_types) == no_of_job_types and len(resources) == no_of_resources:
             m.getAttr("X", x.values()), (len(resources), len(job_types))
         )
         solution = np.hstack((solution, solution.sum(axis=1).reshape(-1, 1)))
-        st.write(pd.DataFrame(solution, columns=job_types + ["Total"], index=resources))
+        solution_df = pd.DataFrame(solution, columns=job_types + ["Total"], index=resources)
+        st.write(solution_df)
+        st.info(f"Total no. of user-entered jobs: {sum(job_days.values())}")
+        st.info(f"Total no. of scheduled jobs: {int(solution_df['Total'].sum())}")
