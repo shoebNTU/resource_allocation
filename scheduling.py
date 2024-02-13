@@ -68,6 +68,7 @@ if len(job_types) == no_of_job_types and len(resources) == no_of_resources:
                 f"Eligible jobs for resource - {resources[i]}",
                 job_types,
                 key="job-resource" + str(i),
+                default=job_types
             )
             resource_job_mapping[resources[i]] = resource_to_job
             resource_to_jobs.append(resource_to_job)
